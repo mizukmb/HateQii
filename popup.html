@@ -1,9 +1,17 @@
 <body>
-<div id="form-position">
+<div id="form-position" style="display:"> 
   <form name="loginForm">
     <p>hatena <input type='text' name='hatena' size='20'></p>
     <p>qiita <input type='text' name='qiita' size='20'></p>
-    <p><input type='submit' value='Login' id="submit"></p>
+    <p><input type='submit' value='Login' id="login"></p>
+  </form>
+</div>
+<div id="logined" style="display:">
+  <h1>Login</h1>
+    <p id='hatenaID'></p>
+    <p id='qiitaID'></p>
+  <form name="logoutForm">
+    <p><input type='submit' value='Logout' id='logout'></p>
   </form>
 </div>
 <script src="js/popup.js"></script>

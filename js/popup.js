@@ -1,8 +1,13 @@
 function loadData() {
   chrome.storage.sync.get(["hatena", "qiita"], function(items) {
     if(items.hatena || items.qiita) {
-      document.getElementById("form-position").innerHTML = "<h1>Login</h1>" + "<p>Hatena ID:" + items.hatena + "</p>" + "<p>QiitaID:" + items.qiita + "</p>";
+      document.getElementById("form-position").style.display = "none";
+      document.getElementById("logined").style.display = "";
+      document.getElementById("hatenaID").innerHTML = "HatenaID: " + items.hatena;
+      document.getElementById("qiitaID").innerHTML = "QiitaID: " + items.qiita;
     } else {
+      document.getElementById("form-position").style.display = "";
+      document.getElementById("logined").style.display = "none";
     }
   });
 }
@@ -13,12 +18,18 @@ function saveChanges() {
 
   if(hatenaID != "" || qiitaID != "") {
     chrome.storage.sync.set({hatena: hatenaID, qiita: qiitaID}, function() {
-      console.log('%s%s', hatenaID, qiitaID);
+      document.getElementById("form-position").style.display = "none";
+      document.getElementById("logined").style.display = "";
     });
   }
 }
 
+function logout() {
+  chrome.storage.sync.clear(function() {
+  });
+  document.getElementById("form-position").style.display = "";
+  document.getElementById("logined").style.display = "none";
+}
 loadData();
-var el = document.getElementById("submit");
-el.addEventListener("click", saveChanges, false);
-
+document.getElementById("login").addEventListener("click", saveChanges, false);
+document.getElementById("logout").addEventListener("click", logout, false);
