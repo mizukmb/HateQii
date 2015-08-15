@@ -8,13 +8,12 @@ document.body.onload = function() {
       var target = document.getElementById("ires");
       target.parentNode.insertBefore(ele, target);
       var qiitaJSONData = JSON.parse(ajax("//qiita.com/api/v2/users/" + items.qiita + "/stocks"));
-      var googleSearchWords = [];
+      var googleSearchWords = document.getElementById("lst-ib").value.replace(/　/g, " ").split(" ");
+      console.log(googleSearchWords);
       var qiitaStockTitles = [];
       for(var i=0; i<qiitaJSONData.length; i++) {
         qiitaStockTitles.push(qiitaJSONData[i].title);
       }
-      console.log(searchQiitaStocks(googleSearchWords, qiitaStockTitles));
-      console.log(qiitaJSONData);
     } else {
     }
   });
