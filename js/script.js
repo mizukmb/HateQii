@@ -7,26 +7,39 @@ document.body.onload = function() {
 
       var target = document.getElementById("ires");
       target.parentNode.insertBefore(ele, target);
-      console.log(getQiitaData("mizukmb"));
-      getQiitaData("mizukmb");
+      var qiitaJSONData = JSON.parse(ajax("//qiita.com/api/v2/users/" + items.qiita + "/stocks"));
+      var googleSearchWords = [];
+      var qiitaStockTitles = [];
+      for(var i=0; i<qiitaJSONData.length; i++) {
+        qiitaStockTitles.push(qiitaJSONData[i].title);
+      }
+      console.log(searchQiitaStocks(googleSearchWords, qiitaStockTitles));
+      console.log(qiitaJSONData);
     } else {
     }
   });
 }
 
-function getQiitaData(username) {
-  // https://qiita.com/api/v2/docs#get-apiv2usersuser_idstocks
-  var apiURL = "//qiita.com/api/v2/users/" + username + "/stocks?page=1&per_page=1";
+function ajax(url) {
   xmlHttp = new XMLHttpRequest();
-  xmlHttp.onreadystatechange = function() {
-    if (xmlHttp.readyState == 4 && xmlHttp.status == 200){
-      var data = JSON.parse(this.responseText);
-      console.log(data[0].title);
-      console.log(data[0].url);
-    }
-  }
-  xmlHttp.open("GET", apiURL, true);
-
+  xmlHttp.open("GET", url, false);
   xmlHttp.send(null);
+  return xmlHttp.responseText;
 }
 
+function searchQiitaStocks(words, titles) {
+  var matchTitles = [];
+  for(var i=0; i<words.length; i++) {
+    var re = new RegExp(words[i], "i");
+    for(var j=0; j<titles.length; j++) {
+      if(titles[j].match(re)) {
+        console.log(titles[j]);
+        console.log(words[i]);
+        matchTitles.push(titles[j]);
+      }
+    }
+  }
+  return matchTitles.filter(function (x, i, self) {
+    return self.indexOf(x) === i;
+  });
+}
