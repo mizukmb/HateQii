@@ -12,5 +12,8 @@ Google 検索を行った時に、特定のユーザのはてなブックマー�
 - Google Chrome を起動し Chrome 拡張の管理ページ([chrome://extensions](chrome://extensions))を開く
 - 画面上部の『デベロッパーモード』にチェックをし、『パッケージ化されていない拡張機能を読み込む…』からダウンロードしたフォルダを選択
 
+## LICENSE
+MIT
+
 ## Author
 [mizukmb](https://mizukmb.net)
